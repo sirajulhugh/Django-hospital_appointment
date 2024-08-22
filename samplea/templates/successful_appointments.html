@@ -1,0 +1,156 @@
+{% extends 'page2.html' %}
+{% block content %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Successful Appointments</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <!-- Animate.css for animations -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <style>
+        body {
+            background-color: #f4f7f6;
+            /* padding-top: 20px; */
+        }
+        h1 {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 40px;
+            font-weight: bold;
+            color: #007bff;
+            animation: fadeInDown 1s;
+        }
+        table {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            animation: fadeInUp 1s;
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+        th, td {
+            text-align: center;
+            vertical-align: middle;
+        }
+        th {
+            background-color: #007bff;
+            color: rgb(21, 12, 146);
+            font-size: 1.1rem;
+            padding: 15px;
+        }
+        td {
+            padding: 15px;
+            font-size: 1rem;
+        }
+        tbody tr {
+            transition: background-color 0.3s ease;
+        }
+        tbody tr:hover {
+            background-color: #e9ecef;
+        }
+        .table thead th {
+            border: none;
+        }
+        .empty-state {
+            text-align: center;
+            color: #6c757d;
+            font-size: 1.5rem;
+            margin-top: 20px;
+        }
+        .table-container {
+            overflow-x: auto;
+            border-radius: 10px;
+            margin-bottom: 40px;
+        }
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            th, td {
+                font-size: 0.9rem;
+                padding: 10px;
+            }
+        }
+        @media (max-width: 576px) {
+            h1 {
+                font-size: 2rem;
+            }
+            th, td {
+                font-size: 0.8rem;
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="animate__animated animate__fadeInDown">Successful Appointments</h1>
+
+        <div class="table-container">
+            <table class="table table-striped table-hover animate__animated animate__fadeInUp">
+                <thead>
+                    <tr>
+                        <th><i class="fas fa-calendar-alt"></i> Date</th>
+                        <th><i class="fas fa-user-md"></i> Patient</th>
+                        <th><i class="fas fa-clinic-medical"></i> Department</th>
+                        <th><i class="fas fa-clock"></i> Slot</th>
+                        <th><i class="fas fa-file-alt"></i> Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for appointment in successful_appointments %}
+                    <tr>
+                        <td>{{ appointment.date }}</td>
+                        <td>{{ appointment.patient.user.get_full_name }}</td>
+                        <td>{{ appointment.department.name }}</td>
+                        <td>
+                            {% if appointment.slot_1 %}Slot 1{% elif appointment.slot_2 %}Slot 2{% elif appointment.slot_3 %}Slot 3{% elif appointment.slot_4 %}Slot 4{% elif appointment.slot_5 %}Slot 5{% endif %}
+                        </td>
+                        <td>{{ appointment.description }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5" class="empty-state">No successful appointments found.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+<br><br><br><br><br><br><br>
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+
+
+
+{% endblock %}

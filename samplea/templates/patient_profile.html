@@ -1,0 +1,91 @@
+{% extends 'page3.html' %}
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Profile</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .card {
+            animation: fadeInUp 1s ease-in-out;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: scale(1.02);
+        }
+
+        .profile-img {
+            border: 4px solid #007bff;
+            padding: 5px;
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            margin-top: -75px;
+            animation: fadeIn 1.2s ease-in-out;
+        }
+
+        .profile-container {
+            position: relative;
+            margin-top: 75px;
+            margin-bottom: 15px;
+        }
+
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Patient Profile</h1>
+        <div class="card mx-auto" style="max-width: 600px;">
+            <div class="card-body text-center">
+                <div class="profile-container">
+                    <img src="{{ patient.images.url }}" alt="Profile Picture" class="rounded-circle profile-img shadow">
+                </div>
+                <h3 class="mb-3">{{ patient.user.first_name }} {{ patient.user.last_name }}</h3>
+                <p><strong>Age:</strong> {{ patient.age }}</p>
+                <p><strong>Phone Number:</strong> {{ patient.phonenumber }}</p>
+                <p><strong>Address:</strong> {{ patient.address }}</p>
+                <a href="{% url 'edit_patient_profile' %}" class="btn btn-primary btn-block mt-4">Edit Profile</a>
+            </div>
+        </div>
+    </div>
+<br><br><br><br><br><br><br>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>
+
+
+
+
+
+{% endblock %}

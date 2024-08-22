@@ -1,0 +1,224 @@
+{% extends 'page3.html' %}
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Appointment</title>
+    <style>
+        body {
+            background-color: #f4f7fc;
+            font-family: 'Arial', sans-serif;
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            animation: fadeInDown 1s;
+        }
+
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: auto;
+            animation: fadeInUp 1s;
+        }
+
+        .form-group label {
+            font-weight: bold;
+            color: #34495e;
+        }
+
+        .form-control, .form-control-file, .btn-primary {
+            transition: all 0.3s ease;
+        }
+
+        .form-control[readonly], .form-control[disabled] {
+            background-color: #e9ecef;
+            opacity: 1;
+        }
+
+        .form-control:hover, .form-control:focus {
+            border-color: #2980b9;
+            box-shadow: 0 0 8px rgba(41, 128, 185, 0.3);
+        }
+
+        .btn-primary {
+            background-color: #2980b9;
+            border: none;
+            width: 100%;
+            padding: 10px;
+            font-size: 1.2rem;
+        }
+
+        .btn-primary:hover {
+            background-color: #21618c;
+            box-shadow: 0 5px 15px rgba(33, 97, 140, 0.4);
+        }
+
+        .alert-danger {
+            animation: fadeIn 1s;
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .container {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .container {
+                padding: 15px;
+            }
+
+            .btn-primary {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <h1>Book Appointment</h1>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" class="form-control" value="{{ user.username }}" readonly>
+            </div>
+            
+            <div class="form-group">
+                <label for="department-select">Select Department:</label>
+                <select id="department-select" name="department" class="form-control" onchange="this.form.submit()">
+                    <option value="">-- NONE --</option>
+                    {% for department in departments %}
+                        <option value="{{ department.id }}" {% if department.id|stringformat:"s" == selected_department_id %}selected{% endif %}>
+                            {{ department.name }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+        
+            <div class="form-group">
+                <label for="doctor-select">Select Doctor:</label>
+                <select id="doctor-select" name="doctor" class="form-control">
+                    <option value="">-- Select a doctor --</option>
+                    {% for doctor in doctors %}
+                        <option value="{{ doctor.id }}">{{ doctor.user.first_name }} {{ doctor.user.last_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        
+            <div class="form-group">
+                <label for="appointment-date">Appointment Date:</label>
+                <input type="date" id="appointment-date" name="date" class="form-control">
+            </div>
+        
+            <div class="form-group">
+                <label for="slot">Slot:</label>
+                <select id="slot" name="slot" class="form-control">
+                    <option value="slot_1">Slot 1: 9-10</option>
+                    <option value="slot_2">Slot 2: 10-11</option>
+                    <option value="slot_3">Slot 3: 11-12</option>
+                    <option value="slot_4">Slot 4: 12-1</option>
+                    <option value="slot_5">Slot 5: 1-2</option>
+                </select>
+            </div>
+        
+            <div class="form-group">
+                <label for="file">Upload Medical File:</label>
+                <input type="file" id="file" name="file" class="form-control-file">
+            </div>
+        
+            <div class="form-group">
+                <label for="description">Description:</label>
+                <textarea id="description" name="description" class="form-control"></textarea>
+            </div>
+        
+            <button type="submit" class="btn btn-primary">Book Appointment</button>
+        </form>
+
+        {% if error_message %}
+            <div class="alert alert-danger mt-3">
+                {{ error_message }}
+            </div>
+        {% endif %}
+    </div>
+    <script>
+        function adjustSelectClasses() {
+            var isSmallScreen = window.matchMedia("(max-width: 576px)").matches;
+
+            var selects = document.querySelectorAll('#department-select, #doctor-select, #slot');
+            selects.forEach(function(select) {
+                if (isSmallScreen) {
+                    select.className = ''; // Removes all classes
+                } else {
+                    select.className = 'form-control'; // Adds the form-control class back on larger screens
+                }
+            });
+        }
+
+        // Run the function on initial load
+        adjustSelectClasses();
+
+        // Add event listener to handle screen resize
+        window.addEventListener('resize', adjustSelectClasses);
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+
+{% endblock %}

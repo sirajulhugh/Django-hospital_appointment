@@ -1,0 +1,115 @@
+{% extends 'page1.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+    {% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Mod</title>
+    <style>
+         body, h1 {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+        }
+
+        /* Flexbox container */
+        .link-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+
+        .link-box {
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            color: rgb(255, 255, 255);
+            padding: 20px 40px;
+            border-radius: 10px;
+            margin: 10px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            font-size: 1.2rem;
+            text-align: center;
+            cursor: pointer;
+            text-decoration: none;
+            flex: 1 1 calc(33.333% - 40px); /* Makes it responsive */
+        }
+
+        /* Hover effects */
+        .link-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            color: rgb(29, 206, 70);
+        }
+
+        /* Responsive design for smaller screens */
+        @media (max-width: 768px) {
+            .link-box {
+                flex: 1 1 calc(50% - 20px); /* Half-width on smaller screens */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .link-box {
+                flex: 1 1 100%; /* Full-width on mobile */
+            }
+        }
+        .notification {
+            position: relative;
+            display: inline-block;
+            margin-right: 20px;
+        }
+        .notification .badge {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            padding: 5px 10px;
+            border-radius: 50%;
+            background: red;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+ <br><br><br>
+    <div class="link-container">
+        
+        
+        <a href="{% url 'appointments_list' %}" class="link-box">Appointments</a>
+        <a href="{% url 'create_department' %}" class="link-box">Create Department</a>
+        <a href="{% url 'department_list' %}" class="link-box">Department List</a>
+        <a href="{% url 'patient_list' %}" class="link-box">Patient List</a>
+        <a href="{% url 'user_list' %}" class="link-box">Doctor List</a>
+        <a href="{% url 'view_user_profile' user.id %}" class="link-box">Profile</a>
+        <a href="{% url 'lgout' %}" class="link-box">Logout</a>
+        <a href="{% url 'reset_password' %}" class="link-box">Reset Password</a>
+    </div>
+<br><br>
+    <!-- Notification for Unassigned Patients -->
+    {% if show_patient_notification %}patient:
+    <div class="notification">
+        <a href="{% url 'unassigned_patients' %}">
+            <img src="{% static 'images/bi.jpg' %}" alt="Patient Notification" width="30" height="30">
+            <span class="badge">{{ patient_count }}</span>
+        </a>
+    </div>
+    {% endif %}
+    <br><br><br>
+
+    <!-- Notification for Unassigned Doctors -->
+    {% if show_doctor_notification %}Doctor:
+    <div class="notification">
+        <a href="{% url 'unassigned_doctors' %}">
+            <img src="{% static 'images/bi2.png' %}" alt="Doctor Notification" width="30" height="30">
+            <span class="badge">{{ doctor_count }}</span>
+        </a>
+    </div>
+    {% endif %}
+    
+</body>
+</html>
+{% endblock %}

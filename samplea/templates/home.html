@@ -1,0 +1,703 @@
+{% extends 'page4.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+body{
+  background: url("{% static 'images/page4.jpg' %}") no-repeat center center fixed;
+background-size: cover;
+}
+
+
+.heading {
+    text-align: center;
+    color: #454343;
+    font-size: 30px;
+    font-weight: 700;
+    position: relative;
+    margin-bottom: 70px;
+    text-transform: uppercase;
+    z-index: 999;
+}
+.white-heading{
+    color: #ffffff;
+}
+.heading:after {
+    content: ' ';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    height: 40px;
+    width: 180px;
+    border-radius: 4px;
+    transform: translateX(-50%);
+    background: url(img/heading-line.png);
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.white-heading:after {
+    background: url(https://i.ibb.co/d7tSD1R/heading-line-white.png);
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.heading span {
+    font-size: 18px;
+    display: block;
+    font-weight: 500;
+}
+.white-heading span {
+    color: #ffffff;
+}
+/*-----Testimonial-------*/
+
+.testimonial:after {
+    position: absolute;
+    top: -0 !important;
+    left: 0;
+    content: " ";
+    background: url(img/testimonial.bg-top.png);
+    background-size: 100% 100px;
+    width: 100%;
+    height: 100px;
+    float: left;
+    z-index: 99;
+}
+
+.testimonial {
+    min-height: 375px;
+    position: relative;
+    background: url(https://i.ibb.co/PTJDkgb/testimonials.jpg);
+    padding-top: 50px;
+    padding-bottom: 50px;
+    background-position: center;
+        background-size: cover;
+}
+#testimonial4 .carousel-inner:hover{
+  cursor: -moz-grab;
+  cursor: -webkit-grab;
+}
+#testimonial4 .carousel-inner:active{
+  cursor: -moz-grabbing;
+  cursor: -webkit-grabbing;
+}
+#testimonial4 .carousel-inner .item{
+  overflow: hidden;
+}
+
+.testimonial4_indicators .carousel-indicators{
+  left: 0;
+  margin: 0;
+  width: 100%;
+  font-size: 0;
+  height: 20px;
+  bottom: 15px;
+  padding: 0 5px;
+  cursor: e-resize;
+  overflow-x: auto;
+  overflow-y: hidden;
+  position: absolute;
+  text-align: center;
+  white-space: nowrap;
+}
+.testimonial4_indicators .carousel-indicators li{
+  padding: 0;
+  width: 14px;
+  height: 14px;
+  border: none;
+  text-indent: 0;
+  margin: 2px 3px;
+  cursor: pointer;
+  display: inline-block;
+  background: #ffffff;
+  -webkit-border-radius: 100%;
+  border-radius: 100%;
+}
+.testimonial4_indicators .carousel-indicators .active{
+  padding: 0;
+  width: 14px;
+  height: 14px;
+  border: none;
+  margin: 2px 3px;
+  background-color: #9dd3af;
+  -webkit-border-radius: 100%;
+  border-radius: 100%;
+}
+.testimonial4_indicators .carousel-indicators::-webkit-scrollbar{
+  height: 3px;
+}
+.testimonial4_indicators .carousel-indicators::-webkit-scrollbar-thumb{
+  background: #eeeeee;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+}
+
+.testimonial4_control_button .carousel-control{
+  top: 175px;
+  opacity: 1;
+  width: 40px;
+  bottom: auto;
+  height: 40px;
+  font-size: 10px;
+  cursor: pointer;
+  font-weight: 700;
+  overflow: hidden;
+  line-height: 38px;
+  text-shadow: none;
+  text-align: center;
+  position: absolute;
+  background: transparent;
+  border: 2px solid #ffffff;
+  text-transform: uppercase;
+  -webkit-border-radius: 100%;
+  border-radius: 100%;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  -webkit-transition: all 0.6s cubic-bezier(0.3,1,0,1);
+  transition: all 0.6s cubic-bezier(0.3,1,0,1);
+}
+.testimonial4_control_button .carousel-control.left{
+  left: 7%;
+  top: 50%;
+  right: auto;
+}
+.testimonial4_control_button .carousel-control.right{
+  right: 7%;
+  top: 50%;
+  left: auto;
+}
+.testimonial4_control_button .carousel-control.left:hover,
+.testimonial4_control_button .carousel-control.right:hover{
+  color: #000;
+  background: #fff;
+  border: 2px solid #fff;
+}
+
+.testimonial4_header{
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 550px;
+  display: block;
+  margin: 30px auto;
+  text-align: center;
+  position: relative;
+}
+.testimonial4_header h4{
+  color: #ffffff;
+  font-size: 30px;
+  font-weight: 600;
+  position: relative;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.testimonial4_slide{
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 70%;
+  margin: auto;
+  padding: 20px;
+  position: relative;
+  text-align: center;
+}
+.testimonial4_slide img {
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 215px;
+    height: 215px;
+    margin: auto;
+    display: block;
+    color: #f2f2f2;
+    font-size: 18px;
+    line-height: 46px;
+    text-align: center;
+    position: relative;
+    border-radius: 50%;
+    box-shadow: -6px 6px 6px rgba(0, 0, 0, 0.23);
+    -moz-box-shadow: -6px 6px 6px rgba(0, 0, 0, 0.23);
+    -o-box-shadow: -6px 6px 6px rgba(0, 0, 0, 0.23);
+    -webkit-box-shadow: -6px 6px 6px rgba(0, 0, 0, 0.23);
+}
+.testimonial4_slide p {
+    color: #ffffff;
+    font-size: 20px;
+    line-height: 1.4;
+    margin: 40px 0 20px 0;
+}
+.testimonial4_slide h4 {
+  color: #ffffff;
+  font-size: 22px;
+}
+
+.testimonial .carousel {
+	padding-bottom:50px;
+}
+.testimonial .carousel-control-next-icon, .testimonial .carousel-control-prev-icon {
+    width: 35px;
+    height: 35px;
+}
+/* ------testimonial  close-------*/
+
+
+
+  </style>
+<body>
+
+
+
+    <section class="testimonial text-center">
+        <div class="container">
+
+            <div class="heading white-heading">
+                Healthcare
+            </div>
+            <div id="testimonial4" class="carousel slide testimonial4_indicators testimonial4_control_button thumb_scroll_x swipe_x" data-ride="carousel" data-pause="hover" data-interval="5000" data-duration="2000">
+             
+                <div class="carousel-inner" role="listbox">
+                    <div class="carousel-item active">
+                        <div class="testimonial4_slide">
+                            <img src="{% static 'images/carsoatf1.jpg' %}" class="img-circle img-responsive" />
+                            <p> Advanced and cutting-edge facilities designed to provide high-quality care, often incorporating the latest technologies, evidence-based practices, and specialized expertise in essence we represent the intersection of medical expertise, technology, and compassionate care.</p>
+                            <h4>STATE OF THE ART TREATMENT UNITS</h4>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="testimonial4_slide">
+                            <img src="{% static 'images/carsoadc2.jpg' %}" class="img-circle img-responsive" /><p>Our diagnostic units are advanced facilities equipped with the latest technology to accurately diagnose medical conditions. These units utilize cutting-edge tools and techniques to provide precise and timely diagnoses, improving patient outcomes and enabling personalized treatments . </p>
+                            <h4>STATE OF THE ART DIAGONASTIC UNITS</h4>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="testimonial4_slide">
+                            <img src="{% static 'images/cardoc3.webp' %}" class="img-circle img-responsive" />
+                            <p>The value of experienced doctors and traditional medical practices is indeed significant and often complements the advancements in diagnostic technology , the experience, wisdom, and interpersonal skills of seasoned physicians remain invaluable components of effective patient care. </p>
+                            <h4>EXPERIANCED DOCTORS</h4>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="testimonial4_slide">
+                            <img src="{% static 'images/car4.jpg' %}" class="img-circle img-responsive" />
+                            <p>A 24/7 emergency unit is a critical component of healthcare facilities, designed to provide immediate care for patients experiencing acute medical conditions or injuries at any time, day or night. It plays a vital role in safeguarding the health and safety of communities by delivering emergency care whenever it's needed most.</p>
+                            <h4>24X7 EMERGENY UNIT</h4>
+                        </div>
+                    </div>
+                </div>
+                <a class="carousel-control-prev" href="#testimonial4" data-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                </a>
+                <a class="carousel-control-next" href="#testimonial4" data-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+
+<br><br><br><br><br><br>
+
+
+    <div class="container">
+        <div class="blog-card">
+			<div class="meta">
+			  <div class="photo" style="background-image: url('{% static 'images/ECG1.jpg' %}')"></div>
+			  <ul class="details">
+				<li class="author"><a href="#">Siraj</a></li>
+				<li class="date">Aug. 24, 2015</li>
+				<li class="tags">
+				  <ul>
+					<li><a href="#">ICU</a></li>
+					<li><a href="#">CARE</a></li>
+					<li><a href="#">HOSPITALITY</a></li>
+					<li><a href="#">DOCTORS</a></li>
+					<li><a href="#">NURSES</a></li>
+					<li><a href="#">CURE</a></li>
+				  </ul>
+				</li>
+			  </ul>
+			</div>
+			<div class="description">
+			  <h1>State of the art patient monitoring</h1>
+			  <h2>ECG Machines (Electrocardiogram)</h2>
+			  <p>State-of-the-art ECG (Electrocardiogram) machines incorporate
+                 advanced technologies that enhance the accuracy, efficiency, 
+                 and usability of cardiac monitoring.Therby transforming cardiac 
+                 care by providing advanced diagnostic capabilities, improving patient 
+                 comfort, and enhancing the integration of cardiovascular health data into overall healthcare management.</p>
+			  <p class="read-more">
+				<a href="#">Read More</a>
+			  </p>
+			</div>
+		  </div>
+		  <div class="blog-card alt">
+			<div class="meta">
+			  <div class="photo" style="background-image: url('{% static 'images/mri2.png' %}')"></div>
+			  <ul class="details">
+				<li class="author"><a href="#">Siraj</a></li>
+				<li class="date">July. 15, 2015</li>
+				<li class="tags">
+				  <ul>
+					<li><a href="#">ICU</a></li>
+					<li><a href="#">CARE</a></li>
+					<li><a href="#">HOSPITALITY</a></li>
+					<li><a href="#">DOCTORS</a></li>
+					<li><a href="#">NURSES</a></li>
+					<li><a href="#">CURE</a></li>
+				  </ul>
+				</li>
+			  </ul>
+			</div>
+			<div class="description">
+			  <h1>State of the art patient diagonostics</h1>
+			  <h2>MRI Machines (Magnetic Resonance Imaging)</h2>
+			  <p>State-of-the-art MRI (Magnetic Resonance Imaging) machines are 
+                at the forefront of medical imaging technology, offering enhanced 
+                capabilities and improved patient care. It represent a significant 
+                advancement in medical imaging technology, improving the capability 
+                to diagnose and monitor a wide range of medical conditions.
+			  </p>
+			  <p class="read-more">
+				<a href="#">Read More</a>
+			  </p>
+			</div>
+		  </div>
+		  <div class="blog-card">
+			<div class="meta">
+			  <div class="photo" style="background-image: url('{% static 'images/vent4.jpg' %}')"></div>
+			  <ul class="details">
+				<li class="author"><a href="#">Siraj</a></li>
+				<li class="date">Aug. 24, 2015</li>
+				<li class="tags">
+				  <ul>
+					<li><a href="#">ICU</a></li>
+					<li><a href="#">CARE</a></li>
+					<li><a href="#">HOSPITALITY</a></li>
+					<li><a href="#">DOCTORS</a></li>
+					<li><a href="#">NURSES</a></li>
+					<li><a href="#">CURE</a></li>
+				  </ul>
+				</li>
+			  </ul>
+			</div>
+			<div class="description">
+			  <h1>State of the art patient care</h1>
+			  <h2> Ventilators</h2>
+			  <p> State-of-the-art ventilators in hospitals are essential medical devices 
+                that provide respiratory support to patients who are unable to breathe 
+                adequately on their own. These advanced ventilators employ cutting-edge 
+                technology to enhance patient care, improve outcomes, and facilitate effective
+                 management of respiratory failure.</p>
+			  <p class="read-more">
+				<a href="#">Read More</a>
+			  </p>
+			</div>
+		  </div>
+		  <div class="blog-card alt">
+			<div class="meta">
+			  <div class="photo" style="background-image: url('{% static 'images/rob5.jpg' %}')"></div>
+			  <ul class="details">
+				<li class="author"><a href="#">Siraj</a></li>
+				<li class="date">July. 15, 2015</li>
+				<li class="tags">
+				  <ul>
+					<li><a href="#">ICU</a></li>
+					<li><a href="#">CARE</a></li>
+					<li><a href="#">HOSPITALITY</a></li>
+					<li><a href="#">DOCTORS</a></li>
+					<li><a href="#">NURSES</a></li>
+					<li><a href="#">CURE</a></li>
+				  </ul>
+				</li>
+			  </ul>
+			</div>
+			<div class="description">
+			  <h1>State of art surgicial precision</h1>
+			  <h2>Robotic surgery</h2>
+			  <p>Robotic surgery is a minimally invasive surgical technique that 
+                utilizes robotic systems to assist surgeons in performing complex 
+                procedures with precision and control. This advanced technology has 
+                significantly transformed the landscape of surgery by enhancing dexterity 
+                and visualization while reducing patient recovery times, scarring, and complication rates.
+			  </p>
+			  <p class="read-more">
+				<a href="#">Read More</a>
+			  </p>
+			</div>
+		  </div>
+          
+
+		</div>
+		  
+
+    </div>
+
+    <style>
+
+    /*PEN STYLES*/
+
+    * {
+box-sizing: border-box;
+}
+
+/* body {
+background: #f1f1f1;
+display: flex;
+flex-direction:column;
+font-size: 1rem;
+justify-content: center;
+align-items: center;
+height: 100vh;
+} */
+
+
+.blog-card {
+display: flex;
+flex-direction: column;
+margin: 1rem auto;
+box-shadow: 0 3px 7px -1px rgba(#000, .1);
+margin-bottom: 1.6%;
+background: #fff;
+line-height: 1.4;
+font-family: sans-serif;
+border-radius: 5px;
+overflow: hidden;
+z-index: 0;
+a {
+color: inherit;
+&:hover {
+color: #5ad67d;
+}
+}
+&:hover {
+.photo {
+transform: scale(1.3) rotate(3deg);
+}
+}
+.meta {
+position: relative;
+z-index: 0;
+height: 200px;
+}
+.photo {
+position: absolute;
+top: 0;
+right: 0;
+bottom: 0;
+left: 0;
+background-size: cover;
+background-position: center;
+transition: transform .2s;
+}
+.details,
+.details ul {
+margin: auto;
+padding: 0;
+list-style: none;
+}
+
+.details {
+position: absolute;
+top: 0;
+bottom: 0;
+left: -100%;
+margin: auto;
+transition: left .2s;
+background: rgba(#000, .6);
+color: #fff;
+padding: 10px;
+width: 100%;
+font-size: .9rem;
+a {
+text-decoration: dotted underline
+}
+ul li {
+display: inline-block;
+}
+.author:before {
+font-family: FontAwesome;
+margin-right: 10px;
+content: "\f007";
+}
+
+.date:before {
+font-family: FontAwesome;
+margin-right: 10px;
+content: "\f133";
+}
+
+.tags {
+ul:before {
+font-family: FontAwesome;
+content: "\f02b";
+margin-right: 10px;
+}
+li {
+margin-right: 2px;
+&:first-child {
+  margin-left: -4px;
+}
+}
+}
+}
+.description {
+padding: 1rem;
+background: #fff;
+position: relative;
+z-index: 1;
+h1,
+h2 {
+font-family: Poppins, sans-serif;
+}
+h1 {
+line-height: 1;
+margin: 0;
+font-size: 1.7rem;
+}
+h2 {
+font-size: 1rem;
+font-weight: 300;
+text-transform: uppercase;
+color: #a2a2a2;
+margin-top: 5px;
+}
+.read-more {
+text-align: right;
+a {
+color: #5ad67d;
+display: inline-block;
+position: relative;
+&:after {
+  content: "\f061";
+  font-family: FontAwesome;
+  margin-left: -10px;
+  opacity: 0;
+  vertical-align: middle;
+  transition: margin .3s, opacity .3s;
+}
+
+&:hover:after {
+  margin-left: 5px;
+  opacity: 1;
+}
+}
+}
+}
+p {
+position: relative;
+margin: 1rem 0 0;
+&:first-of-type {
+margin-top: 1.25rem;
+&:before {
+content: "";
+position: absolute;
+height: 5px;
+background: #5ad67d;
+width: 35px;
+top: -0.75rem;
+border-radius: 3px;
+}
+}
+}
+&:hover {
+.details {
+left: 0%;
+}
+}
+
+
+@media (min-width: 640px) {
+flex-direction: row;
+max-width: 700px;
+.meta {
+flex-basis: 40%;
+height: auto;
+}
+.description {
+flex-basis: 60%;
+&:before {
+transform: skewX(-3deg);
+content: "";
+background: #fff;
+width: 30px;
+position: absolute;
+left: -10px;
+top: 0;
+bottom: 0;
+z-index: -1;
+}
+}
+&.alt {
+flex-direction: row-reverse;
+.description {
+&:before {
+  left: inherit;
+  right: -10px;
+  transform: skew(3deg)
+}
+}
+.details {
+padding-left: 25px;
+}
+}
+}
+}
+
+
+    </style>
+<br><br><br><br><br><br>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-4 col-sm-6 mb-4">
+            <div style="height: 500px; border-radius: 40px; box-shadow: 5px 5px 30px 7px rgba(0,0,0,0.25), -5px -5px 30px 7px rgba(0,0,0,0.22); cursor: pointer; transition: 0.4s;">
+                <div style="height: 80%; border-radius: 40px;">
+                    <img src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExMDdrenpiZGVhcDk0NnEzdGFoOGJycGwxaHYwcGJxeXU3a3FrejhvMiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/KeL1ZDnhue96L8gjJq/giphy.gif
+                    " style="width: 100%; height: 100%; border-radius: 40px 40px 0 0; object-fit: cover;" />
+                </div>
+                <div style="height: 20%; text-align: center; border-radius: 0px 0px 40px 40px; font-family: sans-serif; font-weight: bold; font-size: 20px; color: black;">
+                    <p style="margin: 0; line-height: 60px;"></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 col-sm-6 mb-4">
+            <div style="height: 500px; border-radius: 40px; box-shadow: 5px 5px 30px 7px rgba(0,0,0,0.25), -5px -5px 30px 7px rgba(0,0,0,0.22); cursor: pointer; transition: 0.4s;">
+                <div style="height: 80%; border-radius: 40px;">
+                    <img src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExYzNvZDRxcTF2dzlpMWthODNhc2QyNjNlcXZ4bGR4bDcxMzQ4dXMxZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/wAq5QiGFYeHaENCJ9a/giphy.gif" style="width: 100%; height: 100%; border-radius: 40px 40px 0 0; object-fit: cover;" />
+                </div>
+                <div style="height: 20%; text-align: center; border-radius: 0px 0px 40px 40px; font-family: sans-serif; font-weight: bold; font-size: 20px; color: white;">
+                    <p style="margin: 0; line-height: 60px;"></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 col-sm-6 mb-4">
+            <div style="height: 500px; border-radius: 40px; box-shadow: 5px 5px 30px 7px rgba(0,0,0,0.25), -5px -5px 30px 7px rgba(0,0,0,0.22); cursor: pointer; transition: 0.4s;">
+                <div style="height: 80%; border-radius: 40px;">
+                    <img src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExbThweXgydGdkeG82dWxzNXY2bHVtYzZ0N2N4Y2Y2OGRqeXJpNjYyaiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/kpRL2gwjjO17jXVw4j/giphy.gif" style="width: 100%; height: 100%; border-radius: 40px 40px 0 0; object-fit: cover;" />
+                </div>
+                <div style="height: 20%; text-align: center; border-radius: 0px 0px 40px 40px; font-family: sans-serif; font-weight: bold; font-size: 20px; color: black;">
+                    <p style="margin: 0; line-height: 60px;"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+</body>
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</html>
+{% endblock %}

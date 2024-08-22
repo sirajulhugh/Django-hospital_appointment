@@ -1,0 +1,32 @@
+{% extends 'page2.html' %}
+{% block content %}
+
+<div class="container mt-5">
+    <h1 class="animate__animated animate__fadeInDown">Patient List</h1>
+    <div class="row">
+        {% for patient in patients %}
+            <div class="col-md-6 col-lg-4 animate__animated animate__fadeInUp">
+                <div class="card">
+                    {% if patient.images %}
+                        <img src="{{ patient.images.url }}" class="card-img-top" alt="Patient Image">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ patient.user.first_name }} {{ patient.user.last_name }}</h5>
+                        <p class="card-text"><strong>Phone Number:</strong> {{ patient.phonenumber }}</p>
+                        <p class="card-text"><strong>Age:</strong> {{ patient.age }}</p>
+                        <p class="card-text"><strong>Address:</strong> {{ patient.address }}</p>
+                        <!-- If department is a field in the Patient model, retain this line -->
+                        <!-- <p class="card-text"><strong>Department:</strong> {{ patient.department.name }}</p> -->
+                        <!-- <p class="card-text"><strong>POV:</strong> {{ patient.pov }}</p> -->
+                        <!-- Optionally add buttons or links for more actions -->
+                        <!-- <a href="#" class="btn btn-primary mt-3">View Details</a> -->
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <p class="text-center">No patients assigned to you.</p>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

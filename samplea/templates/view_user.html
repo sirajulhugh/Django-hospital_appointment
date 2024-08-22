@@ -1,0 +1,170 @@
+{% extends 'page1.html' %}
+{% block content %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Doctor Profile</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
+    <style>
+        body {
+            background-color: #f4f6f9;
+            /* padding: 20px; */
+        }
+        h1 {
+            margin-bottom: 20px;
+            font-size: 2.5rem;
+            color: #343a40;
+            text-align: center;
+            animation: fadeInDown 1s;
+        }
+        .card {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border: none;
+            margin-bottom: 20px;
+            border-radius: 10px;
+        }
+        .card-header {
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+        .card-body {
+            padding: 20px;
+            animation: fadeInUp 1s;
+        }
+        .profile-image {
+            display: block;
+            margin: 0 auto 20px auto;
+            border-radius: 50%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .profile-info {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .profile-info p {
+            font-size: 1.1rem;
+        }
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .btn-custom {
+            margin: 0 10px;
+        }
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            .profile-info p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<br><br>
+    <div class="container">
+        <h1 class="animate__animated animate__fadeInDown">{{ doctor.user.first_name }} {{ doctor.user.last_name }}</h1>
+
+        <!-- Profile Image Section -->
+        <div class="card animate__animated animate__fadeInUp">
+            <div class="card-header">Profile Image</div>
+            <div class="card-body text-center">
+                {% if doctor.images %}
+                    <img src="{{ doctor.images.url }}" alt="Doctor Image" width="200" height="200" class="profile-image img-fluid">
+                {% else %}
+                    <p>No image available</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Profile Overview Section -->
+        <div class="card animate__animated animate__fadeInUp">
+            <div class="card-header">Profile Overview</div>
+            <div class="card-body">
+                <div class="profile-info">
+                    <p><strong>Department:</strong> {{ doctor.department.name }}</p>
+                    <p><strong>Date of Joining:</strong> {{ doctor.date_of_join }}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Personal Details Section -->
+        <div class="card animate__animated animate__fadeInUp">
+            <div class="card-header">Personal Details</div>
+            <div class="card-body">
+                <ul class="list-group">
+                    <li class="list-group-item"><strong>First Name:</strong> {{ doctor.user.first_name }}</li>
+                    <li class="list-group-item"><strong>Last Name:</strong> {{ doctor.user.last_name }}</li>
+                    <li class="list-group-item"><strong>Email:</strong> {{ doctor.user.email }}</li>
+                    <li class="list-group-item"><strong>Age:</strong> {{ doctor.age }}</li>
+                    <li class="list-group-item"><strong>Phone Number:</strong> {{ doctor.phonenumber }}</li>
+                    <li class="list-group-item"><strong>Address:</strong> {{ doctor.address }}</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Account Settings Section -->
+        <div class="card animate__animated animate__fadeInUp">
+            <div class="card-header">Account Settings</div>
+            <div class="card-body">
+                <p class="text-center"><strong>Binary Data Status:</strong> 
+                    {% if doctor.binary_data %} 
+                        <span class="badge badge-success">Enabled</span>
+                    {% else %} 
+                        <span class="badge badge-danger">Disabled</span>
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="btn-group animate__animated animate__fadeInUp">
+            <a href="{% url 'edit_user' doctor.id %}" class="btn btn-warning btn-custom"><i class="fas fa-edit"></i> Edit</a>
+            <a href="{% url 'delete_user' doctor.id %}" onclick="return confirm('Are you sure you want to delete this user?')" class="btn btn-danger btn-custom"><i class="fas fa-trash-alt"></i> Delete</a>
+        </div>
+    </div>
+<br><br><br>
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.js"></script>
+</body>
+</html>
+
+
+{% endblock %}

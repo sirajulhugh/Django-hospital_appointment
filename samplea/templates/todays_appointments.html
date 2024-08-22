@@ -1,0 +1,144 @@
+{% extends 'page2.html' %}
+{% block content %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Today's Appointments</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Animate.css for animations -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            background-color: #f4f7f6;
+            /* padding-top: 20px; */
+        }
+        h1 {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 30px;
+            font-weight: bold;
+            color: #007bff;
+            animation: fadeInDown 1s;
+        }
+        .card {
+            border-radius: 15px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #343a40;
+        }
+        .card-body p {
+            font-size: 1rem;
+            color: #555;
+        }
+        .btn-success {
+            font-size: 1.1rem;
+            padding: 10px 20px;
+        }
+        .fa-user, .fa-calendar-alt, .fa-clock, .fa-notes-medical {
+            color: #007bff;
+            margin-right: 8px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: auto;
+        }
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            .card {
+                margin-bottom: 20px;
+            }
+        }
+        @media (max-width: 576px) {
+            h1 {
+                font-size: 2rem;
+            }
+            .card-title {
+                font-size: 1.25rem;
+            }
+            .btn-success {
+                font-size: 1rem;
+                padding: 8px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="animate__animated animate__fadeInDown">Today's Appointments</h1>
+        
+        <div class="row">
+            {% for appointment in appointments %}
+            <div class="col-md-4 col-sm-6">
+                <div class="card animate__animated animate__fadeInUp mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <i class="fas fa-calendar-alt"></i> {{ appointment.date }}
+                        </h5>
+                        <p><i class="fas fa-user"></i><strong> Patient: </strong>{{ appointment.patient.user.get_full_name }}</p>
+                        <p><i class="fas fa-notes-medical"></i><strong> Department: </strong>{{ appointment.department.name }}</p>
+                        <p><i class="fas fa-clock"></i><strong> Slot: </strong>
+                            {% if appointment.slot_1 %}
+                                9-10 AM
+                            {% elif appointment.slot_2 %}
+                                10-11 AM
+                            {% elif appointment.slot_3 %}
+                                11-12 PM
+                            {% elif appointment.slot_4 %}
+                                12-1 PM
+                            {% elif appointment.slot_5 %}
+                                1-2 PM
+                            {% endif %}
+                        </p>
+                        <p><strong>Description: </strong>{{ appointment.description }}</p>
+                        <form action="{% url 'mark_treated' appointment.id %}" method="POST">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-success btn-block">Treated <i class="fas fa-check-circle"></i></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center">
+                <p class="text-muted">No appointments found for today.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div><br><br><br><br><br><br><br>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+
+
+
+{% endblock %}

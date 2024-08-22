@@ -1,0 +1,228 @@
+{% extends 'page2.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+    {% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Module</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+</head>
+<style>
+    body {
+        background-color: #f5f5f5;
+    }
+
+    .container {
+        margin-top: 20px;
+    }
+
+    .card {
+        border-radius: 15px;
+        padding: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        background-color: #fff;
+        margin-bottom: 20px;
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    h1, h2, h5, .card-title {
+        animation: fadeInDown 1s;
+    }
+
+    @keyframes fadeInDown {
+        from {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .card-link {
+        color: #007bff;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    .card-link:hover {
+        text-decoration: underline;
+        color: #0056b3;
+    }
+
+    .card img {
+        height: 150px;
+        object-fit: cover;
+        border-radius: 15px;
+    }
+
+    .notification {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .notification .badge {
+        background-color: red;
+        position: absolute;
+        top: 0;
+        right: 0;
+        border-radius: 50%;
+        padding: 5px 10px;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .card {
+            padding: 15px;
+        }
+
+        h1 {
+            font-size: 2rem;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+        }
+
+        h5, .card-title {
+            font-size: 1.2rem;
+        }
+
+        .btn, .card-link {
+            font-size: 1rem;
+        }
+
+        .notification {
+            position: relative;
+            top: auto;
+            right: auto;
+        }
+
+        .container {
+            margin-top: 10px;
+        }
+    }
+
+    @media (max-width: 576px) {
+        h1 {
+            font-size: 1.8rem;
+        }
+
+        h2 {
+            font-size: 1.3rem;
+        }
+
+        h5, .card-title {
+            font-size: 1rem;
+        }
+
+        .btn, .card-link {
+            font-size: 0.9rem;
+        }
+
+        .card img {
+            height: 120px;
+        }
+    }
+</style>
+<body>
+    <div class="container mt-5">
+        
+        <!-- Department Info -->
+        <div class="department-info mb-4" style="background-color: rgba(255, 255, 255, 0.8); padding: 20px; border-radius: 10px;">
+            <h2 class="text-center">Department: {{ department.name }}</h2>
+            <p class="text-center"><strong>Sub: </strong>{{ department.sub }}</p>
+            <p class="text-center"><strong>About: </strong>
+                <a href="{{ department.about.url }}" class="btn btn-outline-primary" download>Download PDF</a>
+            </p>
+        </div>
+        
+        <!-- Notification Bell for Today's Appointments -->
+        {% if show_doctor_notification %}
+        <div class="notification">
+            <a href="{% url 'todays_appointments' %}" class="position-relative">
+                <img src="{% static 'images/bb.png' %}" alt="Notification" width="40" height="40" class="animate__animated animate__tada">
+                <span class="badge">{{ appointment_count }}</span>
+            </a>
+        </div>
+        {% endif %}
+
+        <!-- Cards Section -->
+        <div class="row mt-5">
+            <div class="col-md-4 col-sm-6">
+                <div class="card animate__animated animate__fadeInUp">
+                    <img src="{% static 'images/pl.jpg' %}" class="card-img-top" alt="Patient List">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Patient List</h5>
+                        <a href="{% url 'patient_list_dr' %}" class="card-link">Manage all the patients</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <div class="card animate__animated animate__fadeInUp">
+                    <img src="{% static 'images/sa.webp' %}" class="card-img-top" alt="Upcoming Appointments">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Upcoming Appointments</h5>
+                        <a href="{% url 'doctor_approved_appointments' %}" class="card-link">Upcoming patient appointments</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <div class="card animate__animated animate__fadeInUp">
+                    <img src="{% static 'images/ua.jpg' %}" class="card-img-top" alt="Successful Appointments">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Successful Appointments</h5>
+                        <a href="{% url 'successful_appointments' %}" class="card-link">Visited appointments in the past</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <div class="card animate__animated animate__fadeInUp">
+                    <img src="{% static 'images/lo.jpg' %}" class="card-img-top" alt="Logout">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Logout</h5>
+                        <a href="{% url 'lgout' %}" class="card-link">Logout from site</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <div class="card animate__animated animate__fadeInUp">
+                    <img src="{% static 'images/dp.jpg' %}" class="card-img-top" alt="Profile">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Profile</h5>
+                        <a href="{% url 'doctor_profile' %}" class="card-link">View my profile</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <div class="card animate__animated animate__fadeInUp">
+                    <img src="{% static 'images/rp.jpg' %}" class="card-img-top" alt="Reset Password">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Reset Password</h5>
+                        <a href="{% url 'reset_password' %}" class="card-link">Change my password</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+{% endblock %}

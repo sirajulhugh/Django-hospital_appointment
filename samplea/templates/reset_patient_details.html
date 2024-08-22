@@ -1,0 +1,107 @@
+{% extends 'page3.html' %}
+{% block content %}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg p-4 animate__animated animate__fadeIn">
+                <div class="card-body">
+                    <h2 class="card-title text-center mb-4">Change doctor</h2>
+                    <form method="POST" action="{% url 'reset_patient_details' %}">
+                        {% csrf_token %}
+                        
+                        <div class="form-group">
+                            <label for="pov" class="font-weight-bold">Purpose of Visit:</label>
+                            <textarea class="form-control" id="pov" name="pov" rows="4" placeholder="Enter new purpose of visit"></textarea>
+                        </div>
+                        
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-warning mt-4 reset-button">
+                                <i class="fas fa-sync-alt mr-2"></i> Reset Details
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div><br><br><br><br><br><br><br>
+
+<style>
+    /* Animation */
+    @import url('https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css');
+
+    /* General Styling */
+    body {
+        background-color: #f7f7f7;
+        font-family: 'Roboto', sans-serif;
+    }
+
+    h2.card-title {
+        font-size: 2rem;
+        color: #333;
+        text-transform: uppercase;
+        letter-spacing: 1.2px;
+    }
+
+    .card {
+        border-radius: 12px;
+        background-color: #ffffff;
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .card:hover {
+        transform: translateY(-10px);
+    }
+
+    /* Form Elements */
+    .form-group label {
+        font-size: 1rem;
+        color: #555;
+    }
+
+    .form-control {
+        border-radius: 8px;
+        box-shadow: none;
+        border: 1px solid #ddd;
+        transition: border-color 0.3s ease;
+    }
+
+    .form-control:focus {
+        border-color: #ffc107;
+        box-shadow: 0 0 8px rgba(255, 193, 7, 0.3);
+    }
+
+    /* Button Styling */
+    .reset-button {
+        font-size: 1.2rem;
+        padding: 0.6rem 2rem;
+        border-radius: 8px;
+        background-color: #ffc107;
+        border: none;
+        color: #fff;
+        transition: background-color 0.3s ease;
+    }
+
+    .reset-button:hover {
+        background-color: #e0a800;
+    }
+
+    .reset-button i {
+        margin-right: 0.5rem;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 767.98px) {
+        h2.card-title {
+            font-size: 1.5rem;
+        }
+
+        .reset-button {
+            font-size: 1rem;
+            padding: 0.5rem 1.5rem;
+        }
+    }
+</style>
+
+{% endblock %}
